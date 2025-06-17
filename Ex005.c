@@ -5,12 +5,15 @@ int main(){
     char ti;
     printf("Qual a sua idade? ");    
     scanf("%d", &id);
+
+    getchar();
+
     printf("Voce tem Titulo de Eleitor (N/S)? ");
     scanf("%c", &ti);
     
-    if(id>=18){
+    if(id>=16){
         if(ti == 'N'){
-            printf("Faca seu título de eleitor");
+            printf("Faca seu titulo de eleitor");
         } else {
             printf("Esta apto a votar!");
         }
