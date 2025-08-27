@@ -1,18 +1,19 @@
 #include <stdio.h>
 
 int main(){
-    int vida = 100;//Variável Vida
-    int *pvida = &vida;//Ponteiro de Vida
-
-    printf("Conteudo da variavel vida: %d\n", vida);
-    printf("Conteudo do Ponteiro: %d\n", *pvida);
-    printf("Endereco da variavel: %p\n", &vida);
-    printf("endereco da do ponteiro: %p\n", &pvida);
+    int vida_jogador = 100;//Variável Vida
+    int *ponteiro_vida;//ponteiro
 
     //Simulador de Dano
-    vida = 50;
-    
+    vida_jogador = vida_jogador -50;
+    printf("O jogador sofreu dano! Vida Atual: %d\n", vida_jogador);
+
+    //Aplicando o valor com o ponteiro
+    ponteiro_vida = &vida_jogador;
+    *ponteiro_vida = *ponteiro_vida + 50;
+
+    // imprimindo o valor
+    printf("Power-up coletado! Vida restaurada: %d", vida_jogador);    
 
     return -1;
-
 }
