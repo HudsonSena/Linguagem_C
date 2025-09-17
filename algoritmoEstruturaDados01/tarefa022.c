@@ -7,12 +7,10 @@ int main(){
     int *ponteiro_onda;
     printf("Quantos inimigos a onda tera?\n");
     scanf("%d", &n_inimigos);
-    ponteiro_onda = (int *) malloc(sizeof(int));
+    ponteiro_onda = (int *) malloc(n_inimigos * sizeof(int));
     if(ponteiro_onda!=NULL){
         printf("Memoria alocada");
     }
-    int onda[n_inimigos];
-    ponteiro_onda = onda;
     for(int i=0; i<n_inimigos; i++){
         printf("Digite o ID. EX(101):\n");
         scanf("%d", ponteiro_onda + i);
