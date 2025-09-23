@@ -6,13 +6,7 @@ typedef struct {
     int moedas;
 } Personagem;
 
-void atualizarPersonagem(Personagem jogador){
-    jogador.posX = 10;
-    jogador.posY = 5;
-    jogador.moedas++;
-
-    return jogador;
-};
+void atualizarPersonagemComPonteiro(Personagem *jogador);
 
 int main() {
     Personagem jogador;
@@ -21,8 +15,14 @@ int main() {
     jogador.moedas = 0;
     printf("\nPosicao inicial: (%d, %d) - Moedas: %d", jogador.posX, jogador.posY, jogador.moedas);
 
-    jogador = atualizarPersonagem(jogador);
+    atualizarPersonagemComPonteiro(&jogador);
 
     printf("\nPosicao atualizada: (%d, %d) - Moedas: %d", jogador.posX, jogador.posY, jogador.moedas);
     return 0;
 }
+
+void atualizarPersonagemComPonteiro(Personagem *jogador){
+    jogador->posX = 10;
+    jogador->posY = 5;
+    jogador->moedas++;
+};
