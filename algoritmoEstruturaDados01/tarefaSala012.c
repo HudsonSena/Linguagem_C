@@ -6,12 +6,12 @@ typedef struct {
     float frequencia;
 } boletim;
 
-/*typedef struct {
+typedef struct {
     int matricula;
     char nome[50];
-    boletim;
-} aluno;
-
+    boletim notas;
+} alunos;
+/*
 void media(float n1, float n2, float n3){
     float media = (n1+n2+n3)/3;
     if(media >= 7.0) {
@@ -22,6 +22,16 @@ void media(float n1, float n2, float n3){
 }*/
 
 int main(){
+    int n, i, j;
+    int escola[n];
+    alunos aluno;
+    printf("\nQuantidade de alunos: ");
+    scanf("%i", &n);
+    for(i=0; i<n; i++){
+        printf("Matricula: ");
+        scanf("%i %s %s %f %f", escola[i].aluno.matricula, escola[i].aluno.nome, 
+        escola[i].aluno.notas.sala);
+    }
     float n1=8.0;
     float n2=9.0;
     float n3=5.0;
