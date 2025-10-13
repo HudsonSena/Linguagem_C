@@ -2,25 +2,26 @@
 
 typedef struct {
     char nome[50];
-    float nota1;
-    float nota2;
-    float nota3;
-} estudante;
+    float hp;
+    float atk;
+} inimigo;
 
 int main() {
-    estudante e1;
-    estudante e2;
-    estudante e3;
-    estudante v[3] = {e1, e2, e3};
-    int i;
-    FILE *file = fopen("../estudantes.txt", "r");
+    inimigo ini01;
+    inimigo ini02;
+    inimigo ini03;
+    inimigo vi[3] = {ini01, ini02, ini03};
+    FILE *file = fopen("../inimigos.txt", "r");
+    int i=0;
     for(i=0; i<3; i++) {
-        fscanf(file, "%s %f %f %f", v[i].nome, &v[i].nota1, &v[i].nota2, &v[i].nota3);
+        fscanf(file, "%s %f %f", vi[i].nome, &vi[i].hp, &vi[i].atk);
     }
     for(i=0; i<3; i++) {
-        float media = (v[i].nota1 + v[i].nota2 + v[i].nota3)/3;
-        if(media>=7) {
-            printf("%s: %.2f\n", v[i].nome, media);
+        float s = vi[i].hp + vi[i].atk;
+        if(s>200) {
+            printf("\nInimigo elite: %s. Nivel de ameaca: %.2f", vi[i].nome, s);
+        } else {
+            printf("\nInimigo comum: %s. Nivel de ameaca: %.2f", vi[i].nome, s);
         }
     }
     fclose(file);
