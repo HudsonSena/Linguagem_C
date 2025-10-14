@@ -12,8 +12,8 @@ int main() {
         printf("Erro: Arquivo config.txt nao encontrado\n");
         exit(1);
     }
-        configuracao c;
-        fscanf(file, "%d %d %f", &c.resolucao_x, &c.resolucao_y, &c.volume_som);
-        printf("\nResolucao: %d x %d\nVolume: %.1f\n", c.resolucao_x, c.resolucao_y, c.volume_som);
+    configuracao c;
+    fscanf(file, "%d %d %f", &c.resolucao_x, &c.resolucao_y, &c.volume_som);
+    printf("\nResolucao: %d x %d\nVolume: %.1f\n", c.resolucao_x, c.resolucao_y, c.volume_som);
     fclose(file);
 }
