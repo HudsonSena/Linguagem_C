@@ -7,7 +7,7 @@ typedef struct {
 } unidade;
 
 int main() {
-    FILE *file = fopen("../squad.dat", "wb");
+    FILE *file = fopen("../squad048.dat", "wb");
     int n;
     printf("Quantas unidades?\n");
     scanf("%d", &n);
