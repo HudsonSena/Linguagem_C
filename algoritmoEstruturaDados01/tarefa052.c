@@ -16,10 +16,10 @@ int main(){
     int i, j;
     for(i=0; i<n; i++){
         printf("Digite as coordenadas x e y da Unidade %d:\n", i+1);
-        scanf("%d %d", (u+i), ((u+i)+1));
+        scanf("%d %d", (int *)(u+i), (int *)(u+i)+1);
     }
     for(i=0; i<n; i++){
-        printf("(%d, %d)\n", u[i].x, u[i].y);
+        printf("(%d, %d)\n", *(u+i), *((u+i)+1));
     }
     double raio = 10.2;
     double distancia;
