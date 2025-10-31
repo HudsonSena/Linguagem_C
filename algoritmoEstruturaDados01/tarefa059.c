@@ -1,63 +1,65 @@
 #include <stdio.h>
 
 typedef struct {
-    int mat;
-    char nome[6];
-    float n1;
-    float n2;
-    float n3;
-} estudante;
+    int id;
+    char nome[50];
+    int hp;
+    int ataque;
+} Monstro;
 
-void ler(estudante *pe) {
-    scanf("%d %s %f %f %f", &pe->mat, pe->nome, &pe->n1, &pe->n2, &pe->n3);
+void ler(Monstro *mo) {
+    scanf("%d %s %d %d", &mo->id, mo->nome, &mo->hp, &mo->ataque);
 }
 
-void menu(){
-    printf("=======Menu de opcoes===========\n");
-    printf("1 - Pesquisar\n");
+void menu() {
+    printf("======== Menu de opcoes =======\n");
+    printf("1 - Procurar monstro\n");
     printf("2 - Sair\n");
-    printf("================================\n");
-
+    printf("===============================\n");
 }
 
-int buscabinaria(int mat, estudante v[], int i, int f) {
+int buscabinaria(int id, Monstro v[], int i, int f) {
     if(i > f) return -1;
     int meio = (i + f)/2;
-    if(v[meio].mat == mat) {
+    if(v[meio].id == id) {
         return meio;
     }
-    if(v[meio].mat < mat) {
-        return buscabinaria(mat, v, meio + 1, f);
+    if(v[meio].id < id) {
+        return buscabinaria(id, v, meio + 1, f);
     }
-    return buscabinaria(mat, v, i, meio -1);
+    return buscabinaria(id, v, i, meio -1);
 }
 
 int main() {
     int n;
-    printf("Quantidade de estudantes:\n");
+    printf("Quantos monstros?\n");
     scanf("%d", &n);
-    estudante v[n];
+    Monstro v[n];
     int i;
     for(i=0; i<n; i++) {
-       ler(&v[i]); 
+        printf("Monstro %d, ID Nome HP Ataque:\n", i +1);
+        ler(&v[i]);
     }
     int op;
     menu();
     scanf("%d", &op);
     while(op != 2) {
-        if(op == 1){
-            int mat;
-            printf("informe uma matricula\n");
-            scanf("%d", &mat);
-            int idx = buscabinaria(mat, v, 0, n-1);
+        if(op == 1) {
+            int id;
+            printf("Id do Monstro:\n");
+            scanf("%d", &id);
+            int idx = buscabinaria(id, v, 0, n - 1);
             if(idx != -1) {
-                v[idx].n3 = v[idx].n3 + 1;
-                float media = (v[idx].n1*2 + v[idx].n2*3 + v[idx].n3*4)/9;
-                printf("%s: %.2f\n", v[idx].nome, media);
+                printf("==================================================\n");
+                printf("Monstro encontrado: %s (ID: %d) HP: %d Ataque: %d\n", v[idx].nome, v[idx].id, v[idx].hp, v[idx].ataque);
+                printf("==================================================\n");
+                
+            } else {
+                printf("Monstro com ID %d, nao encontrado\n", id);
             }
         }
         menu();
-        scanf("%d", &op);
+        scanf("%d", &op);        
     }
-    printf("Programa finalizado!\n");
+    printf("Programa finalizado");
 }
