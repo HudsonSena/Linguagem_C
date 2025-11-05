@@ -21,10 +21,9 @@ int main() {
         v[i] = v[imenor];
         v[imenor] = temp;
     }
-    printf("%lista ordenada:\n");
+    printf("lista ordenada:\n");
     for(i=0; i<n; i++) {
         printf("%d", v[i]);
     }
     printf("\n");
-
 }
