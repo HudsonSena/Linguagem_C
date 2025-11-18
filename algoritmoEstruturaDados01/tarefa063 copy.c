@@ -19,6 +19,6 @@ int main() {
     v[i+1] = x;
     printf("Imprimindo o vetor\n");
     for(i=0; i<n+1; i++) {
-        printf("%d", v[i]);
+        printf("%d ", v[i]);
     }
 }
