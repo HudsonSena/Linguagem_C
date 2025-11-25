@@ -1,16 +1,11 @@
 #include <stdlib.h>
 
-typedef struct {
-    int id;
-    int nivel_ameaca;
-} nave_inimiga;
-
-void intercala(int e, int m, int d, nave_inimiga v[]) {
+void intercala(int e, int m, int d, int v[]) {
     int n1 = (m - e) + 1;
     int n2 = (d - m);
     int k = e;
-    nave_inimiga E[n1];
-    nave_inimiga D[n2];
+    int E[n1];
+    int D[n2];
     int i, j;
     for(i=0; i<n1; i++) {
         E[i] = v[e+i];
@@ -21,7 +16,7 @@ void intercala(int e, int m, int d, nave_inimiga v[]) {
     i = 0;
     j = 0;
     while(i<n1 && j<n2) {
-        if(E[i].nivel_ameaca < D[j].nivel_ameaca) {
+        if(E[i] < D[j]) {
             v[k] = E[i];
             i++;
         }
@@ -43,7 +38,7 @@ void intercala(int e, int m, int d, nave_inimiga v[]) {
     }
 }
 
-void mergeSort(int i, int f, nave_inimiga v[]) {
+void mergeSort(int i, int f, int v[]) {
     if(i<f) {
         int m = (i + f)/2;
         mergeSort(i, m, v);
@@ -54,23 +49,17 @@ void mergeSort(int i, int f, nave_inimiga v[]) {
 
 int main() {
     int n;
-    printf("Quantidade de naves inimigas:\n");
+    printf("Informe o valor de n\n");
     scanf("%d", &n);
-    nave_inimiga v[n];
+    int v[n];
     int i;
     for(i=0; i<n; i++) {
-        scanf("%d %d", &v[i].id, &v[i].nivel_ameaca);
-    }
-    for(i=0; i<n; i++) {
-        printf("| %d: %d ", v[i].id, v[i].nivel_ameaca);
+        scanf("%d", &v[i]);
     }
     mergeSort(0, n-1, v);
-
-    printf("\n");
-
+    printf("Imprimindo o vetor\n");
     for(i=0; i<n; i++) {
-        printf("| ID: %d ", v[i].id);
+        printf("%d", v[i]);
     }
-    
     printf("\n");
 }
