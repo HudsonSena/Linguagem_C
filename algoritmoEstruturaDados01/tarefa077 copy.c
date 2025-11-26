@@ -3,29 +3,29 @@
 #include <stdlib.h>
 
 typedef struct {
-    int id;
-    int pontuacao;
-} jogador;
+    int mat;
+    char nome[100];
+} estudante;
 
-int particiona(int e, int d, jogador v[]) {
-    jogador pivo = v[d];
+int particiona(int e, int d, estudante v[]) {
+    estudante pivo = v[d];
     int j = e - 1;
     int i;
     for(i=e; i<d; i++) {
-        if(v[i].pontuacao >= pivo.pontuacao) {
+        if(v[i].mat <= pivo.mat) {
             j++;
-            jogador temp = v[j];
+            estudante temp = v[j];
             v[j] = v[i];
             v[i] = temp;
         }
     }
-    jogador temp = v[j+1];
+    estudante temp = v[j+1];
     v[j+1] = v[d];
     v[d] = temp;
     return j + 1;
 }
 
-void quicksort(int i, int f, jogador v[]) {
+void quicksort(int i, int f, estudante v[]) {
     if(i<f) {
         int p = particiona(i, f, v);
         quicksort(i, p-1, v);
@@ -33,15 +33,15 @@ void quicksort(int i, int f, jogador v[]) {
     }
 }
 
-void ler(jogador *pe) {
-    scanf("%d %d", &pe->id, &pe->pontuacao);
+void ler(estudante *pe) {
+    scanf("%d %s", &pe->mat, pe->nome);
 }
 
 int main() {
     int n;
     printf("Informe o valor de n\n");
     scanf("%d", &n);
-    jogador v[n];
+    estudante v[n];
     int i;
     for(i=0; i<n; i++) {
         ler(&v[i]);
@@ -49,7 +49,7 @@ int main() {
     quicksort(0, n-1, v);
     printf("Vetor ordenado\n");
     for(i=0; i<n; i++) {
-        printf("%d %d\n", v[i].id, v[i].pontuacao);
+        printf("%d %s\n", v[i].mat, v[i].nome);
     }
     printf("\n");
 }
