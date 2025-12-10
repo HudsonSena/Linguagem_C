@@ -2,12 +2,12 @@
 #include <stdlib.h>
 
 typedef struct {
-    int mat;
+    int id;
     char nome[100];
-} estudante;
+} item;
 
 struct No {
-    estudante dado;
+    item dado;
     struct No* prox;
 };
 
@@ -17,29 +17,29 @@ typedef struct {
 
 void menu() {
     printf("===== Menu de Opcoes =====\n");
-    printf("1 - Inserir Inicio\n");
-    printf("2 - Inserir Fim\n");
-    printf("3 - Inserir Apos\n");
-    printf("4 - Mostrar Lista\n");
-    printf("5 - Pesquisar por matricula\n");
-    printf("6 - Sair\n");
+    printf("1 - Inserir Item no Inicio\n");
+    printf("2 - Inserir Item no Fim\n");
+    printf("3 - Inserir Catalisador apos um fragmento\n");
+    printf("4 - Mostrar inventario\n");
+    printf("5 - Sair\n");
     printf("==========================\n");
 }
 
-void ler(estudante *pe) {
-    printf("Digite a matricula e nome do estudante: ");
-    scanf("%d %s", &pe->mat, pe->nome);
+void ler(item *pe) {
+    printf("Digite o ID e nome do item: ");
+    scanf("%d %s", &pe->id, pe->nome);
 }
 
-void inserir_inicio(Lista *plista, estudante dado) {
+void inserir_inicio(Lista *plista, item dado) {
     struct No* novo = (struct No*) malloc(sizeof(struct No));
     novo->dado = dado;
     novo->prox = plista->inicio;
     plista->inicio = novo;
 }
 
-void inserir_fim(Lista *plista, estudante dado) {
+void inserir_fim(Lista *plista, item dado) {
     struct No* novo = (struct No*) malloc(sizeof(struct No));
+
     novo->dado = dado;
     novo->prox = NULL;
     if (plista->inicio == NULL) {
@@ -54,9 +54,9 @@ void inserir_fim(Lista *plista, estudante dado) {
     }
 }
 
-struct No* inserir_apos(Lista *plista, estudante dado, int mat) {
+struct No* inserir_apos(Lista *plista, item dado, int id) {
     struct No * pi;
-    for(pi=plista->inicio; pi!=NULL && pi->dado.mat != mat; pi=pi->prox);
+    for(pi=plista->inicio; pi!=NULL && pi->dado.id != id; pi=pi->prox);
     if(pi == NULL) {
         return pi;
     } else {
@@ -71,22 +71,9 @@ struct No* inserir_apos(Lista *plista, estudante dado, int mat) {
 void mostrar(Lista lista) {
     //struct No * pi = lista.inicio;
     struct No * pi;
-    for(pi=lista.inicio; pi!=NULL; pi=pi->prox){ printf("Matricula: %d, Nome: %s\n", pi->dado.mat, pi->dado.nome); }
+    for(pi=lista.inicio; pi!=NULL; pi=pi->prox){ printf("ID: %d, Item: %s\n", pi->dado.id, pi->dado.nome); }
     /*while (pi != NULL) {
-        printf("Matricula: %d, Nome: %s\n", pi->dado.mat, pi->dado.nome);
-        pi = pi->prox;
-    }*/
-}
-
-struct No* pesquisar(Lista lista, int mat) {    
-    //struct No* pi = lista.inicio;
-    struct No * pi;
-    for(pi=lista.inicio; pi!=NULL && pi->dado.mat!=mat; pi=pi->prox);
-    return pi;
-    /*while (pi != NULL & pi->dado.mat <= mat) {
-        if (pi->dado.mat == mat) {
-            return pi;
-        }
+        printf("Matricula: %d, Nome: %s\n", pi->dado.id, pi->dado.nome);
         pi = pi->prox;
     }*/
 }
@@ -97,41 +84,30 @@ int main() {
     int op;
     menu();
     scanf("%d", &op);
-    while(op!=6) {
+    while(op!=5) {
         if(op==1) {
-            estudante e;
+            item e;
             ler(&e);
             inserir_inicio(&lista, e);
         }
         if(op==2) {
-            estudante e;
+            item e;
             ler(&e);
             inserir_fim(&lista, e);            
         }
         if(op==3) {
-            estudante e;
+            item e;
             ler(&e);
-            int mat;
-            printf("Informe a matricula do estudante para inserir apos\n");
-            scanf("%d", &mat);
-            struct No * pi = inserir_apos(&lista, e, mat);
+            int id;
+            printf("Informe o id do fragmento\n");
+            scanf("%d", &id);
+            struct No * pi = inserir_apos(&lista, e, id);
             if(pi==NULL) {
-                printf("Nao foi possivel inserir o estudante\n");
+                printf("Nao foi possivel adicionar o catalisador ao inventario\n");
             }
         }
         if(op==4) {
             mostrar(lista);            
-        }
-        if(op==5) {
-            int mat;
-            printf("Informe a matricula: ");
-            scanf("%d", &mat);
-            struct No * pi = pesquisar(lista, mat);
-            if(pi!=NULL) {
-                printf("Matricula: %d, Nome: %s\n", pi->dado.mat, pi->dado.nome);
-            } else {
-                printf("Estudante nao encontrado\n");
-            }
         }
         menu();
         scanf("%d", &op);
@@ -139,4 +115,3 @@ int main() {
 
     return 0;
 }
-
