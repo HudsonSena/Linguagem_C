@@ -73,7 +73,24 @@ struct No* inserir_antes(Lista *plista, heroi dado, int id) {
 
 void mostrar(Lista lista) {
     struct No * pi;
-    for(pi=lista.inicio; pi!=NULL; pi=pi->prox){ printf("ID: %d, Nome: %s\n", pi->dado.id, pi->dado.nome); }
+    for(pi=lista.inicio; pi!=NULL; pi=pi->prox){ printf("Matricula: %d, Nome: %s\n", pi->dado.mat, pi->dado.nome); }
+    /*while (pi != NULL) {
+        printf("Matricula: %d, Nome: %s\n", pi->dado.mat, pi->dado.nome);
+        pi = pi->prox;
+    }*/
+}
+
+struct No* pesquisar(Lista lista, int mat) {    
+    //struct No* pi = lista.inicio;
+    struct No * pi;
+    for(pi=lista.inicio; pi!=NULL && pi->dado.mat!=mat; pi=pi->prox);
+    return pi;
+    /*while (pi != NULL & pi->dado.mat <= mat) {
+        if (pi->dado.mat == mat) {
+            return pi;
+        }
+        pi = pi->prox;
+    }*/
 }
 
 int main() {
