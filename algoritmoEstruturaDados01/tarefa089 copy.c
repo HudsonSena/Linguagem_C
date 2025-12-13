@@ -2,12 +2,12 @@
 #include <stdlib.h>
 
 typedef struct {
-    int id;
+    int mat;
     char nome[100];
-} jogador;
+} estudante;
 
 struct No {
-    jogador dado;
+    estudante dado;
     struct No* prox;
 };
 
@@ -22,26 +22,27 @@ void menu() {
     printf("3 - Inserir Apos\n");
     printf("4 - Inserir Antes\n");
     printf("5 - Mostrar Lista\n");
-    printf("6 - Pesquisar por ID\n");
+    printf("6 - Pesquisar por matricula\n");
     printf("7 - Deletar Inicio\n");
     printf("8 - Deletar Fim\n");
-    printf("9 - Sair\n");
+    printf("9 - Deletar por matricula\n");
+    printf("10 - Sair\n");
     printf("==========================\n");
 }
 
-void ler(jogador *pe) {
-    printf("Digite o ID e nome do jogador: ");
-    scanf("%d %s", &pe->id, pe->nome);
+void ler(estudante *pe) {
+    printf("Digite a matricula e nome do estudante: ");
+    scanf("%d %s", &pe->mat, pe->nome);
 }
 
-void inserir_inicio(Lista *plista, jogador dado) {
+void inserir_inicio(Lista *plista, estudante dado) {
     struct No* novo = (struct No*) malloc(sizeof(struct No));
     novo->dado = dado;
     novo->prox = plista->inicio;
     plista->inicio = novo;
 }
 
-void inserir_fim(Lista *plista, jogador dado) {
+void inserir_fim(Lista *plista, estudante dado) {
     struct No* novo = (struct No*) malloc(sizeof(struct No));
     novo->dado = dado;
     novo->prox = NULL;
@@ -57,9 +58,9 @@ void inserir_fim(Lista *plista, jogador dado) {
     }
 }
 
-struct No* inserir_apos(Lista *plista, jogador dado, int id) {
+struct No* inserir_apos(Lista *plista, estudante dado, int mat) {
     struct No * pi;
-    for(pi=plista->inicio; pi!=NULL && pi->dado.id != id; pi=pi->prox);
+    for(pi=plista->inicio; pi!=NULL && pi->dado.mat != mat; pi=pi->prox);
     if(pi == NULL) {
         return pi;
     } else {
@@ -71,11 +72,11 @@ struct No* inserir_apos(Lista *plista, jogador dado, int id) {
     }
 }
 
-struct No* inserir_antes(Lista *plista, jogador dado, int id) {
+struct No* inserir_antes(Lista *plista, estudante dado, int mat) {
     if(plista->inicio == NULL) {
         return NULL;
     }
-    else if(plista->inicio->dado.id == id) {
+    else if(plista->inicio->dado.mat == mat) {
         struct No* novo = (struct No*) malloc(sizeof(struct No));
         novo->dado = dado;
         novo->prox = plista->inicio;
@@ -83,7 +84,7 @@ struct No* inserir_antes(Lista *plista, jogador dado, int id) {
     }
     else {
         struct No* pi;
-        for(pi = plista->inicio; pi->prox != NULL && pi->prox->dado.id != id; pi = pi->prox);
+        for(pi = plista->inicio; pi->prox != NULL && pi->prox->dado.mat != mat; pi = pi->prox);
         if(pi->prox == NULL) {
             return NULL;
         }
@@ -99,12 +100,12 @@ struct No* inserir_antes(Lista *plista, jogador dado, int id) {
 
 void mostrar(Lista lista) {
     struct No * pi;
-    for(pi=lista.inicio; pi!=NULL; pi=pi->prox){ printf("ID: %d, Nome: %s\n", pi->dado.id, pi->dado.nome); }
+    for(pi=lista.inicio; pi!=NULL; pi=pi->prox){ printf("Matricula: %d, Nome: %s\n", pi->dado.mat, pi->dado.nome); }
 }
 
-struct No* pesquisar(Lista lista, int id) {
+struct No* pesquisar(Lista lista, int mat) {
     struct No * pi;
-    for(pi=lista.inicio; pi!=NULL && pi->dado.id!=id; pi=pi->prox);
+    for(pi=lista.inicio; pi!=NULL && pi->dado.mat!=mat; pi=pi->prox);
     return pi;
 }
 
@@ -120,7 +121,7 @@ void deletar_inicio(Lista *plista) {
 
 void deletar_fim(Lista *plista) {
     if(plista->inicio == NULL) {
-        printf("Nao eh possivel remover jogadores\n");
+        printf("O estudante nao pode ser deletado\n");
     } else if(plista->inicio->prox == NULL) {        
         struct No* pi = plista->inicio;
         plista->inicio = NULL;
@@ -136,57 +137,92 @@ void deletar_fim(Lista *plista) {
     }
 }
 
+void deletar_por_valor(Lista *plista, int mat) {
+    //inicio == NULL
+    if(plista->inicio == NULL) {
+        printf("A lista esta vazia\n");
+    }
+    //No se encontra no inicio
+    else if(plista->inicio->dado.mat == mat) {
+        struct No* pi = plista->inicio;
+        plista->inicio = pi->prox;
+        free(pi);
+    }
+    //lista tem um unico o, matricula nao existe
+    else if(plista->inicio->prox == NULL) {
+        if(plista->inicio->dado.mat != mat) {
+            printf("O estudante nao pode ser removido\n");
+        }
+    }
+    //lista com multliplos Nos. Valor existe
+    //lista com multliplos Nos. Valor nao existe
+    else {
+        struct No * pa;
+        struct No * pi;
+        for(pi = plista->inicio; pi != NULL && pi->dado.mat != mat; pi = pi->prox){
+            pa = pi;
+        }
+        if(pi == NULL) {
+            printf("O estudanto nao pode ser removido\n");
+        }
+        else {
+            pa->prox = pi->prox;
+            free(pi);
+        }
+    }
+}
+
 int main() {
     Lista lista;
     lista.inicio = NULL;
     int op;
     menu();
     scanf("%d", &op);
-    while(op!=9) {
+    while(op!=10) {
         if(op==1) {
-            jogador e;
+            estudante e;
             ler(&e);
             inserir_inicio(&lista, e);
         }
         if(op==2) {
-            jogador e;
+            estudante e;
             ler(&e);
             inserir_fim(&lista, e);            
         }
         if(op==3) {
-            jogador e;
+            estudante e;
             ler(&e);
-            int id;
-            printf("Informe o ID do jogador para inserir apos:\n");
-            scanf("%d", &id);
-            struct No * pi = inserir_apos(&lista, e, id);
+            int mat;
+            printf("Informe a matricula do estudante para inserir apos:\n");
+            scanf("%d", &mat);
+            struct No * pi = inserir_apos(&lista, e, mat);
             if(pi==NULL) {
-                printf("Nao foi possivel inserir o jogador\n");
+                printf("Nao foi possivel inserir o estudante\n");
             }
         }
         if(op==4) {
-            jogador e;
+            estudante e;
             ler(&e);
-            int id;
-            printf("Informe o ID do jogador para inserir antes:\n");
-            scanf("%d", &id);
-            struct No * pi = inserir_antes(&lista, e, id);
+            int mat;
+            printf("Informe a matricula do estudante para inserir antes:\n");
+            scanf("%d", &mat);
+            struct No * pi = inserir_antes(&lista, e, mat);
             if(pi==NULL) {
-                printf("Nao foi possivel inserir o jogador\n");
+                printf("Nao foi possivel inserir o estudante\n");
             }
         }
         if(op==5) {
             mostrar(lista);            
         }
         if(op==6) {
-            int id;
-            printf("Informe o ID:\n");
-            scanf("%d", &id);
-            struct No * pi = pesquisar(lista, id);
+            int mat;
+            printf("Informe a matricula:\n");
+            scanf("%d", &mat);
+            struct No * pi = pesquisar(lista, mat);
             if(pi!=NULL) {
-                printf("ID: %d, Nome: %s\n", pi->dado.id, pi->dado.nome);
+                printf("Matricula: %d, Nome: %s\n", pi->dado.mat, pi->dado.nome);
             } else {
-                printf("jogador nao encontrado\n");
+                printf("Estudante nao encontrado\n");
             }
         }
         if(op==7) {
@@ -194,6 +230,12 @@ int main() {
         }
         if(op==8) {
             deletar_fim(&lista);
+        }
+        if(op==9) {
+            int mat;
+            printf("Informe a matricula:\n");
+            scanf("%d", &mat);
+            deletar_por_valor(&lista, mat);         
         }
         menu();
         scanf("%d", &op);
