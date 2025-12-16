@@ -50,7 +50,7 @@ void add_spell(Spellbook *pspellbook, spell dado) {
 
 void display_spellbook(Spellbook spellbook) {
     No * pi;
-    for(pi=spellbook.inicio; pi!=NULL; pi=pi->prox){ printf("ID: %d, Name: %s, Mana Costa:\n", pi->dado.id, pi->dado.name, pi->dado.mana_cost); }
+    for(pi=spellbook.inicio; pi!=NULL; pi=pi->prox){ printf("ID: %d, Name: %s, Mana Costa:%d\n", pi->dado.id, pi->dado.name, pi->dado.mana_cost); }
 }
 
 void destroy_spellbook(Spellbook *spellbook) {
