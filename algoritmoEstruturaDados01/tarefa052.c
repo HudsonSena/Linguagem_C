@@ -18,9 +18,6 @@ int main(){
         printf("Digite as coordenadas x e y da Unidade %d:\n", i+1);
         scanf("%d %d", (int *)(u+i), (int *)(u+i)+1);
     }
-    for(i=0; i<n; i++){
-        printf("(%d, %d)\n", *(u+i), *((u+i)+1));
-    }
     double raio = 10.2;
     double distancia;
     int cont = 0;
@@ -28,7 +25,7 @@ int main(){
         for(j=0; j<n; j++){
             if(j>=i && j<n){
                 printf("\nInterecao i: %d,  j: %d", i, j);
-                distancia = sqrt(pow(u[j].x - u[i].x, 2) + pow(u[j].y - u[i].y, 2));
+                distancia = sqrt(pow((*(u +j)).x - (*(u +i)).x, 2) + pow((*(u+j)).y - (*(u +i)).y, 2));
                 printf("\n%f", distancia);
                 if(distancia <= raio){
                     cont++;

@@ -19,5 +19,5 @@ int main() {
     }
     printf("Pontos ganhos: %d", soma);
     fseek(file, 0, SEEK_CUR);
-    fprintf(file, "\n--- SESSION CONCLUDED VIDEO ---\n");
+    fprintf(file, "\n--- SESSION CONCLUDED Video ---\n");
 }
