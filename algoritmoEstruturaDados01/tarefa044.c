@@ -11,6 +11,7 @@ int main() {
     fscanf(file, "%d", &n);
     int i;
     int soma;
+    soma = 0;
     exp e;
     for(i=0; i<n; i++) {
         fscanf(file, "%d %d", &e.id, &e.pontos);
@@ -18,5 +19,5 @@ int main() {
     }
     printf("Pontos ganhos: %d", soma);
     fseek(file, 0, SEEK_CUR);
-    fprintf(file, "\n--- SESSION CONCLUDED ---\n");
+    fprintf(file, "\n--- SESSION CONCLUDED VIDEO ---\n");
 }
