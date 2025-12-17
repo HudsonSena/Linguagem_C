@@ -28,6 +28,7 @@ int main(){
         printf("\n");
     }
     printf("O mapa possui %d blocos de tijolos", n1);
+    free(mapa);
 
     return 0;
 }
