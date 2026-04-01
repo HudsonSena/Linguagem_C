@@ -45,6 +45,6 @@ void liberarArvore(No* raiz) {
     for(int i = 0; i < raiz->nfilhos; i++) {
         liberarArvore(raiz->filhos[i]);
     }
-    printf("Liberando no: %d\n", raiz->valor);
+    printf("Liberando noo: %d\n", raiz->valor);
     free(raiz);
 }
