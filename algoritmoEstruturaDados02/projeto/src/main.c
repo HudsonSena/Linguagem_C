@@ -54,7 +54,7 @@ void consultaUsuario2(Hash *hash, BloomFilter *bloom, char *usuario) {
         printf("Usuario %s, encontrado.\n", usuario);
         consultasPositivas2++;
     } else {
-        printf("Usuario %s, inexistente. Falso positivo(Bloom Filter)\n", usuario);
+        printf("Usuario %s, inexistente. Sem Bloom Filter\n", usuario);
         consultasNegativas2++;
     }
 
@@ -72,23 +72,25 @@ void mostrarEstatisticas() {
     printf("Numero de falsos positivos: %d\n", falsoPositivo);
     printf("Tempo médio gasto por consulta: %.6f segundos\n", tempoTotal / consultas);
     printf("Tempo total gasto em consultas: %.6f segundos\n", tempoTotal);
-    printf("Tempo médio gasto por consulta 2: %.6f segundos\n", tempoTotal2 / consultas2);
-    printf("Tempo total gasto em consultas 2: %.6f segundos\n", tempoTotal2);
+    printf("Tempo médio gasto por consulta sem Bloom Filter: %.6f segundos\n", tempoTotal2 / consultas2);
+    printf("Tempo total gasto em consultas sem Bloom Filter: %.6f segundos\n", tempoTotal2);
 }
 
 void inserirArquivo(Hash *hash, BloomFilter *bloom, const char *nomeArquivo) {
-    FILE *arquivo = fopen(nomeArquivo, "r");
+    //Mudar nome do arquivo para o caminho correto, caso necessário
+    FILE *arquivo = fopen("../data/usuarios1000.txt", "r");
     if (arquivo == NULL) {
         printf("Erro ao abrir o arquivo %s\n", nomeArquivo);
         return;
     }
 
-    char usuario[12];
+    char usuario[20];
     while (fgets(usuario, sizeof(usuario), arquivo)) {
         // Remover o caractere de nova linha, se presente
         usuario[strcspn(usuario, "\n")] = '\0';
         inserirUsuario(hash, bloom, usuario);
     }
+    printf("Usuários inseridos em lote\n");
 
     fclose(arquivo);
 }
@@ -103,7 +105,7 @@ int main() {
 
     int opcao;
 
-    char usuario[12];
+    char usuario[20];
 
     do {
         printf("\nMenu:\n");
