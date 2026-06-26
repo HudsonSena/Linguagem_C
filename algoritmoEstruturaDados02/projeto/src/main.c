@@ -124,6 +124,7 @@ int main() {
                 printf("Digite o nome do usuário para consulta (até 9 caracteres): ");
                 scanf("%s", usuario);
                 consultaUsuario(&hash, &bloom, usuario);
+                consultaUsuario2(&hash, &bloom, usuario);
                 break;
             case 3:
                 inserirArquivo(&hash, &bloom, "usuarios.txt");
@@ -134,7 +135,6 @@ int main() {
         }
     } while (opcao != 5);
 
-    liberarTabelaHash(&hash);
+    liberar(&hash);
     return 0;
-
 }
